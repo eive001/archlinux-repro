@@ -555,6 +555,7 @@ function get_bootstrap_img() {
 
     if [ ! -e "$IMGDIRECTORY/$bootstrap_img" ]; then
         msg "Downloading bootstrap image..."
+        #( cd "$IMGDIRECTORY" && curl -f --remote-name-all "$BOOTSTRAPMIRROR/$bootstrap_img"{,.sig} )
         ( cd "$IMGDIRECTORY" && curl --remote-name-all 172.18.0.4/archlinux-bootstrap-2022.06.01-x86_64.tar.gz{,.sig} )
         if ! gpg --verify "$IMGDIRECTORY/$bootstrap_img.sig" "$IMGDIRECTORY/$bootstrap_img"; then
             error "Can't verify image"
