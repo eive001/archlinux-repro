@@ -84,10 +84,27 @@ function get_archive_link () {
 # Desc: check validity of archive URL
 # 1: Package archive link
 # Return: check result
+# function verify_archive_link () {
+# 	curl -IfLlso /dev/null "${1}"
+# 	return $?
+# }
+
 function verify_archive_link () {
-	curl -IfLlso /dev/null "${1}"
-	return $?
+	#curl -Iflso  --connect-timeout=3  /dev/null "${1}"
+        re=$(curl -sI -w "%{http_code}" -o /dev/null "$1")
+	if [ "$re" == "200" ];then
+	   return 0;
+	else
+	   return 1;
+	fi
 }
+
+
+
+
+
+
+
 
 # Desc: Download package to $2 if not present and check signature using pacman's keyring
 # 1: Package archive link
