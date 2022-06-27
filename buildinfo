@@ -127,7 +127,7 @@ function download_archive_package () {
 			if verify_archive_link "${target}"; then
 				local filename="$(basename ${target})"
 				echo "Downloading ${filename}" >&2
-				if curl -sSfL --remote-name-all "${target}" "${target}.sig"; then
+				if curl -sSfL --progress-bar --remote-name-all "${target}" "${target}.sig"; then
 					mv "${filename}"{,.sig} "${cachedir}/"
 					echo "${2}/${filename}"
 				else
